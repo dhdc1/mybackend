@@ -59,6 +59,17 @@ app.post('/new-patient',async (req,res)=>{
 })
 
 app.post('/new-booking',async (req,res)=>{
+
+  // code check
+  let sql_check = " SELECT count(t.id) as total  from booking	t ";
+  sql_check  += "  where   t.bed_no = ? and t.book_date = ? and t.book_time = ? ";
+  let bed_no = req.body.bed_no;
+  let book_date = req.body.book_date;
+  let book_time = req.body.book_time ;
+  let raw =  await knex.raw(sql_check,[bed_no,book_date,book_time]);
+  console.log(raw[0]);
+  // end check
+
   let data =req.body;
   console.log(data);
   await knex('booking').insert(data);
