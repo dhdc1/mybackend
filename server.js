@@ -26,15 +26,24 @@ var knex = require('knex')({
 	}
   });
 
-
+// r-1
 app.get('/patients', async (req,res)=>{
    let sql = "select * from patient";
    let raw =  await knex.raw(sql);
    res.json(raw[0]);
 })
 
+//r-2
 app.get('/patient/:cid', async (req,res)=>{
   let sql = "select * from patient where cid = ?";
+  let cid = req.params.cid;
+  let raw =  await knex.raw(sql,[cid]);
+  res.json(raw[0]);
+})
+
+//r-3
+app.delete('/patient/:cid', async (req,res)=>{
+  let sql = "delete from patient where cid = ?";
   let cid = req.params.cid;
   let raw =  await knex.raw(sql,[cid]);
   res.json(raw[0]);
@@ -49,4 +58,13 @@ app.post('/new-patient',async (req,res)=>{
 
 })
 
-app.listen(4000, () => console.log('API listening on port 4000!'))
+app.post('/new-booking',async (req,res)=>{
+  let data =req.body;
+  console.log(data);
+  await knex('booking').insert(data);
+  res.send('ok')
+})
+
+
+
+app.listen(4000, () => console.log('Running 4000!'))
