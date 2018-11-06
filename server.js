@@ -78,12 +78,13 @@ app.delete('/booking/:id', async (req,res)=>{
   res.json(raw[0]);
 })
 
-app.delete('/booking/:id', async (req,res)=>{
-  let sql = "delete from booking where id = ?";
+app.get('/booking/:id', async (req,res)=>{
+  let sql = "select * from booking where id = ?";
   let cid = req.params.id;
   let raw =  await knex.raw(sql,[id]);
   res.json(raw[0]);
 })
+
 
 
 
