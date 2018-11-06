@@ -67,8 +67,12 @@ app.post('/new-booking',async (req,res)=>{
   let book_date = req.body.book_date;
   let book_time = req.body.book_time ;
   let raw =  await knex.raw(sql_check,[bed_no,book_date,book_time]);
-  console.log('total',raw[0]);
-  res.json(raw[0])
+  console.log('total',raw[0][0].total);
+  if(raw[0][0].total>0){
+    res.end('can not book.')
+  }
+  
+
   // end check
 
   let data =req.body;
