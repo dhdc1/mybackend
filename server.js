@@ -26,6 +26,11 @@ var knex = require('knex')({
 	}
   });
 
+  function midleware(req,res,next){
+    console.log('i am midleware...')
+    next();
+  }
+app.use(midleware);
 // r-1
 app.get('/patients', async (req,res)=>{
    let sql = "select * from patient";
