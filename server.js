@@ -33,6 +33,14 @@ app.get('/patients', async (req,res)=>{
    res.json(raw[0]);
 })
 
+app.get('/patient/:cid', async (req,res)=>{
+  let sql = "select * from patient where cid = ?";
+  let cid = req.params.cid;
+  let raw =  await knex.raw(sql,[cid]);
+  res.json(raw[0]);
+})
+
+
 app.post('/new-patient',async (req,res)=>{
     let data =req.body;
     console.log(data);
