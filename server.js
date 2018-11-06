@@ -12,10 +12,10 @@ var knex = require('knex')({
     client: 'mysql',
     connection: {
       host : 'localhost',
-      port :3309,
+      port :3306,
       user : 'root',
-      password : '1234',
-      database : 'react'
+      password : '112233',
+      database : 'book'
     },
 	pool :{
 		afterCreate:(conn,done)=>{
@@ -27,16 +27,16 @@ var knex = require('knex')({
   });
 
 
-app.get('/', async (req,res)=>{
-   let sql = "select * from person";
+app.get('/patients', async (req,res)=>{
+   let sql = "select * from patient";
    let raw =  await knex.raw(sql);
    res.json(raw[0]);
 })
 
-app.post('/',async (req,res)=>{
+app.post('/new-patient',async (req,res)=>{
     let data =req.body;
     console.log(data);
-    await knex('person').insert(data);
+    await knex('patient').insert(data);
     res.send('ok')
 
 })
