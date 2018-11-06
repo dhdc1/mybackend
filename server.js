@@ -65,6 +65,26 @@ app.post('/new-booking',async (req,res)=>{
   res.send('ok')
 })
 
+app.get('/bookings', async (req,res)=>{
+  let sql = "select * from booking";
+  let raw =  await knex.raw(sql);
+  res.json(raw[0]);
+})
+
+app.delete('/booking/:id', async (req,res)=>{
+  let sql = "delete from booking where cid = ?";
+  let cid = req.params.id;
+  let raw =  await knex.raw(sql,[id]);
+  res.json(raw[0]);
+})
+
+app.delete('/booking/:id', async (req,res)=>{
+  let sql = "delete from booking where id = ?";
+  let cid = req.params.id;
+  let raw =  await knex.raw(sql,[id]);
+  res.json(raw[0]);
+})
+
 
 
 app.listen(4000, () => console.log('Running 4000!'))
